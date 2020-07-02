@@ -1,3 +1,7 @@
+# 更新了课程类型的选择，以前只能默认python体验课，现在可以选择pythonB，2.0等
+# 更新了“添加按钮”防忘记功能（其实就是使用颜色区分是否按过），防止二次添加
+# 下一个版本想完善一下时间的自动填写功能
+
 from tkinter import *
 from tkinter import ttk
 import subprocess
@@ -14,6 +18,9 @@ class Application(Frame):
     def create_widgets(self):
         """设置所有窗体小部件"""
         self.lb1 = Label(self, text='Python体验课').grid(row=0, column=0, sticky=W)
+        self.cmb0 = ttk.Combobox(self, value=('python体验课', 'python体验课B', 'python体验课2.0'))
+        self.cmb0.grid(row=0, column=1, sticky=W, pady=2)
+
         self.lb2 = Label(self, text='时间：').grid(row=1, column=0, sticky=W)
         self.entry1 = Entry(self, borderwidth=2)
         self.entry1.insert(END, self.date)
@@ -39,23 +46,23 @@ class Application(Frame):
         self.cmb5 = ttk.Combobox(self, value=('小于半年', '一年', '两年', '三年','大于三年'))
         self.cmb5.grid(row=5,column=2, sticky=W, pady=2)
 
-        self.lb7 = Label(self,text='【4】爱好：').grid(row=6, column=0, sticky=W)
-        self.entry3 = Entry(self, borderwidth=2)
-        self.entry3.grid(row=6, column=1, sticky=W, pady=2)
+        # self.lb7 = Label(self,text='【4】爱好：').grid(row=6, column=0, sticky=W)
+        # self.entry3 = Entry(self, borderwidth=2)
+        # self.entry3.grid(row=6, column=1, sticky=W, pady=2)
 
-        self.lb8 = Label(self, text='【5】电脑操作：').grid(row=7, column=0, sticky=W)
+        self.lb8 = Label(self, text='【4】电脑操作：').grid(row=7, column=0, sticky=W)
         self.cmb6 = ttk.Combobox(self, value=('超级烂', '很慢，错误较多', '很慢，但是没什么错误', '一般速度', '非常熟练'))
         self.cmb6.grid(row=7, column=1, sticky=W, pady=2)
 
-        self.lb9 = Label(self,text='【6】课上表现：').grid(row=8, column=0, sticky=W)
+        self.lb9 = Label(self,text='【5】课上表现：').grid(row=8, column=0, sticky=W)
         self.txt1 = Text(self, width=50, height=4, wrap=WORD, borderwidth=2)
         self.txt1.grid(row=8, column=1, columnspan=2, sticky=W, pady=2)
 
-        self.lb10 = Label(self,text='【7】家庭背景：').grid(row=9, column=0, sticky=W)
+        self.lb10 = Label(self,text='【6】家庭背景：').grid(row=9, column=0, sticky=W)
         self.txt2 = Text(self, width=50, height=3, wrap=WORD, borderwidth=2)
         self.txt2.grid(row=9, column=1, columnspan=2, sticky=W, pady=2)
 
-        self.lb11 = Label(self,text='【8】备注：').grid(row=10, column=0, sticky=W)
+        self.lb11 = Label(self,text='【7】备注：').grid(row=10, column=0, sticky=W)
         self.txt3 = Text(self,width=50,height=4,wrap=WORD, borderwidth=2)
         self.txt3.grid(row=10,column=1,columnspan=2,sticky=W, pady=2)
 
@@ -67,7 +74,7 @@ class Application(Frame):
     def clear_all_stu_info(self):
         self.entry1.delete(0, END)
         self.entry2.delete(0, END)
-        self.entry3.delete(0, END)
+        # self.entry3.delete(0, END)
         self.txt1.delete(0.0, END)
         self.txt2.delete(0.0, END)
         self.txt3.delete(0.0, END)
@@ -77,6 +84,7 @@ class Application(Frame):
         self.cmb4.delete(0, END)
         self.cmb5.delete(0, END)
         self.cmb6.delete(0, END)
+        self.btn1.configure(bg='yellow')
 
     def update_stu_info(self):
         """添加学员信息函数"""
@@ -86,11 +94,12 @@ class Application(Frame):
             #     print(i.encode('utf-8').decode('utf-8'),end='')
             for line in all_stu_info:
                 f.write(line)
+        self.btn1.configure(bg='blue')
 
     def show_txt(self):
         """显示文件"""
         # f = os.system('d:\\test.txt')
-        #subprocess.run('d:\\test.txt',shell=True)
+        # subprocess.run('d:\\test.txt',shell=True)
         subprocess.Popen('d:\\test.txt',shell=True)
 
     def get_stu_info(self):
@@ -98,26 +107,27 @@ class Application(Frame):
         info_list = []
         num = self.cmb1.get()
         if num:
-            info_list.append('\nPython体验课')
+            # info_list.append('\nPython体验课')
+            info_list.append('\n'+self.cmb0.get())
             info_list.append('\n时间：'+self.entry1.get())
             info_list.append('\n人数：'+self.cmb1.get())
             info_list.append('\n【1】姓名：'+self.entry2.get())
             info_list.append('\n【2】年龄：'+self.cmb2.get()+self.cmb3.get())
             info_list.append('\n【3】编程基础：'+self.cmb4.get()+self.cmb5.get())
-            info_list.append('\n【4】爱好：'+self.entry3.get())
-            info_list.append('\n【5】电脑操作：'+self.cmb6.get())
-            info_list.append('\n【6】课上表现：'+self.txt1.get(0.0, END))
-            info_list.append('【7】家庭背景：'+self.txt2.get(0.0, END))
-            info_list.append('【8】备注：'+self.txt3.get(0.0, END))
+            # info_list.append('\n【4】爱好：'+self.entry3.get())
+            info_list.append('\n【4】电脑操作：'+self.cmb6.get())
+            info_list.append('\n【5】课上表现：'+self.txt1.get(0.0, END))
+            info_list.append('【6】家庭背景：'+self.txt2.get(0.0, END))
+            info_list.append('【7】备注：'+self.txt3.get(0.0, END))
         else:
             info_list.append('\n【1】姓名：'+self.entry2.get())
             info_list.append('\n【2】年龄：'+self.cmb2.get()+self.cmb3.get())
             info_list.append('\n【3】编程基础：'+self.cmb4.get()+self.cmb5.get())
-            info_list.append('\n【4】爱好：'+self.entry3.get())
-            info_list.append('\n【5】电脑操作：'+self.cmb6.get())
-            info_list.append('\n【6】课上表现：'+self.txt1.get(0.0, END))
-            info_list.append('【7】家庭背景：'+self.txt2.get(0.0, END))
-            info_list.append('【8】备注：'+self.txt3.get(0.0, END))
+            # info_list.append('\n【4】爱好：'+self.entry3.get())
+            info_list.append('\n【4】电脑操作：'+self.cmb6.get())
+            info_list.append('\n【5】课上表现：'+self.txt1.get(0.0, END))
+            info_list.append('【6】家庭背景：'+self.txt2.get(0.0, END))
+            info_list.append('【7】备注：'+self.txt3.get(0.0, END))
         return info_list
 
 
@@ -126,7 +136,7 @@ root.title('学员信息输入小程序^_^')
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 
-root.geometry('460x420+%d+%d'%(screen_width/2-230,screen_height/2-280))
+root.geometry('460x396+%d+%d'%(screen_width/2-230,screen_height/2-280))
 root.resizable(0,0)
 
 app = Application(root)
