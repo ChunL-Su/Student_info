@@ -18,7 +18,7 @@ class Application(Frame):
     def create_widgets(self):
         """设置所有窗体小部件"""
         self.lb1 = Label(self, text='Python体验课').grid(row=0, column=0, sticky=W)
-        self.cmb0 = ttk.Combobox(self, value=('python体验课', 'python体验课B', 'python体验课2.0'))
+        self.cmb0 = ttk.Combobox(self, value=('python体验课', 'python体验课B',  'python体验课R','python体验课2.0'))
         self.cmb0.grid(row=0, column=1, sticky=W, pady=2)
 
         self.lb2 = Label(self, text='时间：').grid(row=1, column=0, sticky=W)
@@ -51,7 +51,7 @@ class Application(Frame):
         # self.entry3.grid(row=6, column=1, sticky=W, pady=2)
 
         self.lb8 = Label(self, text='【4】电脑操作：').grid(row=7, column=0, sticky=W)
-        self.cmb6 = ttk.Combobox(self, value=('超级烂', '很慢，错误较多', '很慢，但是没什么错误', '一般速度', '非常熟练'))
+        self.cmb6 = ttk.Combobox(self, value=('无基础', '很慢，错误较多', '很慢，但是没什么错误', '一般速度', '非常熟练'))
         self.cmb6.grid(row=7, column=1, sticky=W, pady=2)
 
         self.lb9 = Label(self,text='【5】课上表现：').grid(row=8, column=0, sticky=W)
